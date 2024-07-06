@@ -26,7 +26,6 @@ const ProductDetailsScreen = () => {
   if (!product) {
     return <Text>Product Not Found</Text>;
   }
-
   return (
     <View style={styles.container}>
       <Stack.Screen options={{ title: product.name }} />
