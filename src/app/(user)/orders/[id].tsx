@@ -1,5 +1,6 @@
 import orders from "@/assets/data/orders";
 import { useOrderDetails } from "@/src/api/orders";
+import { useUpdateOrderSubscription } from "@/src/api/orders/subscription";
 import OrderItemListItem from "@/src/components/OrderItemListItem";
 import OrderListItem from "@/src/components/OrderListItem";
 import { Stack, useLocalSearchParams } from "expo-router";
@@ -13,6 +14,8 @@ export default function OrderDetailsScreen() {
     : NaN;
 
   const { data: order, error, isLoading } = useOrderDetails(id);
+
+  useUpdateOrderSubscription(id);
 
   if (!order) {
     return <Text>Not Found</Text>;
