@@ -3,6 +3,7 @@ import { useOrderDetails, useUpdateOrder } from "@/src/api/orders";
 import OrderItemListItem from "@/src/components/OrderItemListItem";
 import OrderListItem from "@/src/components/OrderListItem";
 import Colors from "@/src/constants/Colors";
+import { notifyUserAboutOrderUpdate } from "@/src/lib/notification";
 import { OrderStatusList } from "@/types";
 import { Stack, useLocalSearchParams } from "expo-router";
 import {
@@ -24,8 +25,11 @@ export default function OrderDetailsScreen() {
 
   const { mutate: updateOrder } = useUpdateOrder();
 
-  const updateStatus = (status: string) => {
+  const updateStatus = async (status: string) => {
     updateOrder({ id, updatedFields: { status } });
+    if (order) {
+      await notifyUserAboutOrderUpdate({ ...order, status });
+    }
   };
 
   if (!order) {
